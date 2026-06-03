@@ -1,27 +1,20 @@
+#include "../include/Config.h"
+#include "../include/Game.h"
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
+#include <SFML/System.hpp>
 
-#include <optional>
-
-constexpr int WINDOW_WIDTH  = 800;
-constexpr int WINDOW_HEIGHT = 600;
-constexpr int TARGET_FPS    = 60;
-
-int main(int argc, char* argv[])
+int main()
 {
-    sf::RenderWindow window{sf::VideoMode({WINDOW_WIDTH, WINDOW_HEIGHT}), 
-                            "Flappy Bird", sf::Style::Titlebar | sf::Style::Close};
-    window.setFramerateLimit(TARGET_FPS);
+    Config cfg{};
+    Game game{cfg, Game::State::Playing};
 
-    while (window.isOpen()) {
-        while (const std::optional event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) {
-                window.close();
-            }
-
-            window.clear(sf::Color::Cyan);
-            window.display();
-        }
+    sf::Clock clk;
+    while (game.isRunning()) {
+        game.processEvents();
+        game.update(clk.restart().asSeconds());
+        game.render();
     }
 
     return 0;
