@@ -1,15 +1,14 @@
 #pragma once
 
-#include "Config.h"
 #include <SFML/Graphics.hpp>
 
 class Bird {
 private:
     sf::Texture m_tex;
     float   m_posY;
-    float   m_velY;
-    float   m_angle;
-    bool    m_alive;
+    float   m_velY      = 0.0f;
+    float   m_angle     = 0.0f;
+    bool    m_alive     = true;
 
 public:
     Bird(const char* pathToTexture, const float initY);

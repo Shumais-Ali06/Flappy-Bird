@@ -3,9 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 
-World::World(const int scrollSpeed)
-    : m_scrollSpeed{ scrollSpeed }
-    , m_bird{ Constants::g_birdTexturePath, (yMin + yMax) / 2 }
+World::World()
+    // Place the bird midway above the ground initially
+    : m_bird{ Constants::g_birdTexturePath, (Constants::yMin + Constants::yMax) / 2 }
 {
 }
 
@@ -17,7 +17,7 @@ void World::update(const float dt)
 void World::drawBackground(sf::RenderWindow& window) const
 {
     const float bgWidth      = window.getSize().x;
-    const float skyHeight    = window.getSize().y * float(yMax) / (yMax - yMin);
+    const float skyHeight    = window.getSize().y * float(Constants::yMax) / (Constants::yMax - Constants::yMin);
     const float groundHeight = window.getSize().y - skyHeight;
 
     sf::RectangleShape sky{{ bgWidth, skyHeight }};

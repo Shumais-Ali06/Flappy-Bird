@@ -1,14 +1,14 @@
 #include "../include/Game.h"
+#include "../include/Constants.h"
 
-Game::Game(Config& cfg, State initState)
-    : m_cfg{ cfg }
-    , m_state{ initState }
-    , m_window{ sf::VideoMode{{cfg.windowWidth, cfg.windowHeight}},
+Game::Game(State initState)
+    : m_state{ initState }
+    , m_window{ sf::VideoMode{{m_windowWidth, m_windowHeight}},
                               Constants::g_appTitle,
                               sf::Style::Titlebar | sf::Style::Close }
-    , m_world{ cfg.scrollSpeed }
+    , m_world{}
     {
-        m_window.setFramerateLimit(cfg.targetFps);
+        m_window.setFramerateLimit(m_targetFps);
     }
 
 void Game::update(float dt)

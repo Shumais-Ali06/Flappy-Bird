@@ -18,8 +18,8 @@ void Bird::drawTo(sf::RenderWindow& window) const
 
     /* NOTE: These values are hardcoded for the time being and the window aspect
      * ratio should be taken into consideration as such */
-    const float scaleX = 5.0f;
-    const float scaleY = 5.0f;
+    const float scaleX = 2.5f;
+    const float scaleY = 2.5f;
     spr.setScale({scaleX, scaleY});
 
     window.draw(spr);

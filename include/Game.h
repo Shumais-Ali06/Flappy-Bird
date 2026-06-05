@@ -1,11 +1,8 @@
 #pragma once
 
-#include "Config.h"
-#include "Constants.h"
 #include "World.h"
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
 
 class Game {
 public:
@@ -17,13 +14,15 @@ public:
     };
 
 private:
-    Config&             m_cfg;
+    unsigned int        m_windowWidth  = 800;
+    unsigned int        m_windowHeight = 600;
+    unsigned int        m_targetFps    = 60;
     State               m_state;
     sf::RenderWindow    m_window;
     World               m_world;
 
 public:
-    Game(Config& cfg, State initState);
+    Game(State initState);
 
     bool isRunning() const { return m_window.isOpen(); }
 
