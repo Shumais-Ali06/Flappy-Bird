@@ -4,13 +4,8 @@ SRC_DIRS    := src
 CXXFLAGS    := -std=c++17 -Wall -Wextra -Wpedantic
 LDFLAGS     := -lsfml-graphics -lsfml-window -lsfml-system
 
-# Find all the C and C++ files we want to compile
-SRCS := $(shell find $(SRC_DIRS) -name '*.cpp' -or -name '*.c' -or -name '*.s')
-
-# Prepends BUILD_DIR and appends .o to every src file
+SRCS := $(shell find $(SRC_DIRS) -name '*.cpp')
 OBJS := $(SRCS:%=$(BUILD_DIR)/%.o)
-
-# String substitution (suffix version without %).
 DEPS := $(OBJS:.o=.d)
 
 # Every folder in ./src will need to be passed to GCC so that it can find header files
@@ -36,7 +31,7 @@ clean:
 	rm -r $(BUILD_DIR)
 
 run: $(BUILD_DIR)/$(TARGET_EXEC)
-	$(BUILD_DIR)/$(TARGET_EXEC)
+	./$(BUILD_DIR)/$(TARGET_EXEC)
 
 # Include the .d makefiles. '-' suppresses errors for missing Makefiles initially
 -include $(DEPS)

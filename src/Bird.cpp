@@ -8,18 +8,18 @@ Bird::Bird(const char* pathToTexture, const float initY)
 {
 }
 
-void Bird::update(float dt)
+void Bird::update(const float dt)
 {
 }
 
 void Bird::drawTo(sf::RenderWindow& window) const
 {
-    static sf::Sprite spr{ m_tex };
+    static sf::Sprite spr{ m_tex, {{0, 0}, {16, 16}} };
 
     /* NOTE: These values are hardcoded for the time being and the window aspect
-     * should be taken into consideration as such */
-    const float scaleX = 0.1f;
-    const float scaleY = 0.1f;
+     * ratio should be taken into consideration as such */
+    const float scaleX = 5.0f;
+    const float scaleY = 5.0f;
     spr.setScale({scaleX, scaleY});
 
     window.draw(spr);
