@@ -11,7 +11,7 @@ World::World()
 
 void World::update(const float dt)
 {
-
+    m_bird.update(dt);
 }
 
 void World::drawBackground(sf::RenderWindow& window) const
@@ -30,7 +30,7 @@ void World::drawBackground(sf::RenderWindow& window) const
     window.draw(ground);
 }
 
-void World::drawTo(sf::RenderWindow& window) const
+void World::drawTo(sf::RenderWindow& window)
 {
     drawBackground(window);
     m_bird.drawTo(window);

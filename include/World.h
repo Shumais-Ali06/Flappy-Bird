@@ -18,5 +18,5 @@ public:
     World();
 
     void update(const float dt);
-    void drawTo(sf::RenderWindow& window) const;
+    void drawTo(sf::RenderWindow& window);
 };
