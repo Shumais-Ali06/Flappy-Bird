@@ -11,6 +11,8 @@ private:
     float       m_velY  = 0.0f;
     float       m_angle = 0.0f;
     bool        m_alive = true;
+    const float m_jumpImpulse   = 30.0f;
+    const float m_maxSpeed      = 30.0f;
 
 public:
     Bird(const char* pathToTexture, const float initY);
@@ -19,6 +21,6 @@ public:
     const sf::Texture& getTexture() const { return m_tex; }
 
     void jump();
-    void update(const float dt);
+    void update(const float gravity, const float dt);
     void drawTo(sf::RenderWindow& window);
 };

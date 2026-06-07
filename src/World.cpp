@@ -5,13 +5,15 @@
 
 World::World()
     // Place the bird midway above the ground initially
-    : m_bird{ Constants::g_birdTexturePath, (Constants::yMin + Constants::yMax) / 2 }
+    : m_bird{ Constants::g_birdTexturePath, Constants::yMax / 2 }
 {
 }
 
 void World::update(const float dt)
 {
-    m_bird.update(dt);
+    if (m_bird.isAlive()) {
+        m_bird.update(m_gravity, dt);
+    }
 }
 
 void World::drawBackground(sf::RenderWindow& window) const

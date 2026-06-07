@@ -8,8 +8,8 @@ namespace Constants {
 
     // NOTE: x = 0 at the bird's position (increases to the right) 
     //       y = 0 at the ground level    (increases upwards)
-    constexpr float yMax =  800.0f;
-    constexpr float yMin = -200.0f;
-    constexpr float xMax =  800.0f;
-    constexpr float xMin = -200.0f;
+    constexpr float yMax =  80.0f;
+    constexpr float yMin = -20.0f;
+    constexpr float xMax =  80.0f;
+    constexpr float xMin = -20.0f;
 }

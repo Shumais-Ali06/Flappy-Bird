@@ -43,5 +43,11 @@ void Game::processEvents()
         if (event->is<sf::Event::Closed>()) {
             m_window.close();
         }
+
+        if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+            if (keyPressed->scancode == sf::Keyboard::Scan::Space) {
+                m_world.getBird().jump();
+            }
+        }
     }
 }

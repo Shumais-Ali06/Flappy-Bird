@@ -5,11 +5,9 @@
 #include <SFML/Graphics.hpp>
 
 class World {
-public:
-    const int gravity     = -10;
-    const int scrollSpeed =  100;
-
 private:
+    const int m_gravity     = -50;
+    const int m_scrollSpeed = 100;
     Bird m_bird;
 
     void drawBackground(sf::RenderWindow& window) const;
@@ -19,4 +17,5 @@ public:
 
     void update(const float dt);
     void drawTo(sf::RenderWindow& window);
+    Bird& getBird() { return m_bird; }
 };
