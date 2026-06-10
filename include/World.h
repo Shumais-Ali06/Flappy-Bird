@@ -6,6 +6,9 @@
 
 class World {
 private:
+    const sf::Texture m_skyTex;
+    const sf::Texture m_groundTex;
+
     const int m_gravity     = -50;
     const int m_scrollSpeed = 100;
     Bird m_bird;

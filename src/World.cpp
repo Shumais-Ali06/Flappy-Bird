@@ -4,8 +4,10 @@
 #include <SFML/Graphics.hpp>
 
 World::World()
+    : m_skyTex{ Constants::g_skyTexturePath }
+    , m_groundTex{ Constants::g_flrTexturePath, false, { {0, 80}, {64, 32} }}
     // Place the bird midway above the ground initially
-    : m_bird{ Constants::g_birdTexturePath, Constants::yMax / 2 }
+    , m_bird{ Constants::g_birdTexturePath, Constants::yMax / 2 }
 {
 }
 
@@ -20,16 +22,18 @@ void World::drawBackground(sf::RenderWindow& window) const
 {
     const float bgWidth      = window.getSize().x;
     const float skyHeight    = window.getSize().y * float(Constants::yMax) / (Constants::yMax - Constants::yMin);
-    const float groundHeight = window.getSize().y - skyHeight;
+    const float flrHeight    = window.getSize().y - skyHeight;
 
-    sf::RectangleShape sky{{ bgWidth, skyHeight }};
-    sky.setFillColor(sf::Color::Blue);
+    sf::RectangleShape sky{ { bgWidth, skyHeight } };
+    sky.setTexture(&m_skyTex);
     window.draw(sky);
 
-    sf::RectangleShape ground{{bgWidth, groundHeight}};
-    ground.setPosition({0.0f, skyHeight});
-    ground.setFillColor(sf::Color::Green);
-    window.draw(ground);
+    // BUG: Texture appears stretched and distorted instead of being scaled to fit and repeated
+    // Might require switching from sf::Shape to sf::Texture later on
+    sf::RectangleShape flr{ { bgWidth, flrHeight } };
+    flr.setPosition({0.0f, skyHeight});
+    flr.setTexture(&m_groundTex);
+    window.draw(flr);
 }
 
 void World::drawTo(sf::RenderWindow& window)
