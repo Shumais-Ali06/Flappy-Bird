@@ -24,9 +24,8 @@ Bird::Bird(const char* pathToTexture, const float initY)
     const float scaleX = 2.5f;
     const float scaleY = 2.5f;
 
-    // TODO: Make the sprite modification calls more readable
-    m_spr.sprite().setScale({scaleX, scaleY});
-    m_spr.sprite().setOrigin(m_spr.sprite().getLocalBounds().size / 2.0f);
+    m_spr.setScale({scaleX, scaleY});
+    m_spr.setOrigin(m_spr.getLocalBounds().size / 2.0f);
 }
 
 void Bird::update(const float gravity, const float dt)
@@ -42,10 +41,9 @@ void Bird::update(const float gravity, const float dt)
 
 void Bird::drawTo(sf::RenderWindow& window)
 {
-    // TODO: Remove the hardcoded values for the window size
-    m_spr.sprite().setPosition(worldToScnCoords(800, 600, { 0.0f, m_posY }));
+    m_spr.setPosition(worldToScnCoords(window.getSize().x, window.getSize().y, { 0.0f, m_posY }));
 
-    window.draw(m_spr.sprite());
+    window.draw(m_spr);
 }
 
 void Bird::jump()

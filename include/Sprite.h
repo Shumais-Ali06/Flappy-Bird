@@ -5,15 +5,14 @@
 #include <SFML/Graphics.hpp>
 
 /* Utility class to encapsulate sprites with animated frames from an existing texture */
-class Sprite {
+class Sprite : public sf::Sprite {
 private:
-    sf::Sprite  m_sprite;
     Animation   m_anim;
-    float       m_acc = 0.0f;       // time accumluator
+    float       m_acc = 0.0f;       // time accumulator for animation frames
 
 public:
     Sprite(const sf::Texture& tex, const sf::IntRect& texRect, const int numFrames, const float framesPerSec)
-        : m_sprite{ tex, texRect }
+        : sf::Sprite{ tex, texRect }
         , m_anim{ texRect, numFrames, framesPerSec }
     {
     }
@@ -27,9 +26,7 @@ public:
         while (m_acc >= spf) {
             m_acc -= spf;
             m_anim.next();
-            m_sprite.setTextureRect(m_anim.getFrame());
+            setTextureRect(m_anim.getFrame());
         }
     }
-
-    sf::Sprite& sprite() { return m_sprite; }
 };
