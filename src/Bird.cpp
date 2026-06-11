@@ -1,18 +1,10 @@
 #include "../include/Bird.h"
 #include "../include/Constants.h"
+#include "../include/Utils.h"
 
 #include <SFML/Graphics.hpp>
 
 #include <algorithm>
-
-// TODO: Remove the need to pass window size
-sf::Vector2f worldToScnCoords(unsigned w, unsigned h, sf::Vector2f pos)
-{
-    // Derived using the two-point form of a straight line
-    const float xScn = float(w) / (Constants::xMax - Constants::xMin) * (pos.x - Constants::xMin);
-    const float yScn = float(h) / (Constants::yMin - Constants::xMax) * (pos.y - Constants::yMax);
-    return sf::Vector2f{ xScn, yScn };
-}
 
 Bird::Bird(const char* pathToTexture, const float initY)
     : m_tex{ pathToTexture }
@@ -31,7 +23,7 @@ Bird::Bird(const char* pathToTexture, const float initY)
 void Bird::update(const float gravity, const float dt)
 {
     m_velY += gravity * dt;
-    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::yMax);
+    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_worldBounds.yMax);
     if (m_posY <= 0.0f) {
         m_alive = false;
     }
@@ -41,7 +33,7 @@ void Bird::update(const float gravity, const float dt)
 
 void Bird::drawTo(sf::RenderWindow& window)
 {
-    m_spr.setPosition(worldToScnCoords(window.getSize().x, window.getSize().y, { 0.0f, m_posY }));
+    m_spr.setPosition(worldToScnCoords({0.0f, m_posY}, window.getSize(), Constants::g_worldBounds));
 
     window.draw(m_spr);
 }

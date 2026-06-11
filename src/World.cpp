@@ -7,7 +7,7 @@ World::World()
     : m_skyTex{ Constants::g_skyTexturePath }
     , m_groundTex{ Constants::g_flrTexturePath, false, { {0, 80}, {64, 32} }}
     // Place the bird midway above the ground initially
-    , m_bird{ Constants::g_birdTexturePath, Constants::yMax / 2 }
+    , m_bird{ Constants::g_birdTexturePath, Constants::g_worldBounds.yMax / 2 }
 {
 }
 
@@ -20,8 +20,9 @@ void World::update(const float dt)
 
 void World::drawBackground(sf::RenderWindow& window) const
 {
+    // NOTE: Sky consists of the region above y = 0 and floor lies below
     const float bgWidth      = window.getSize().x;
-    const float skyHeight    = window.getSize().y * float(Constants::yMax) / (Constants::yMax - Constants::yMin);
+    const float skyHeight    = window.getSize().y * Constants::g_worldBounds.yMax / Constants::g_worldBounds.height();
     const float flrHeight    = window.getSize().y - skyHeight;
 
     sf::RectangleShape sky{ { bgWidth, skyHeight } };
