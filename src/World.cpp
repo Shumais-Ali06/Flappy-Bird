@@ -4,10 +4,10 @@
 #include <SFML/Graphics.hpp>
 
 World::World()
-    : m_skyTex{ Constants::g_skyTexturePath }
-    , m_groundTex{ Constants::g_flrTexturePath, false, { {0, 80}, {64, 32} }}
+    : m_groundTex{ Constants::g_flrTexturePath, false, { {0, 80}, {64, 32} }}
+    , m_bg{ Constants::g_bgTexturePath }
     // Place the bird midway above the ground initially
-    , m_bird{ Constants::g_birdTexturePath, Constants::g_worldBounds.yMax / 2 }
+    , m_bird{ Constants::g_birdTexturePath, Constants::g_globalBounds.yMax / 2 }
 {
 }
 
@@ -22,13 +22,10 @@ void World::drawBackground(sf::RenderWindow& window) const
 {
     // NOTE: Sky consists of the region above y = 0 and floor lies below
     const float bgWidth      = window.getSize().x;
-    const float skyHeight    = window.getSize().y * Constants::g_worldBounds.yMax / Constants::g_worldBounds.height();
+    const float skyHeight    = window.getSize().y * Constants::g_globalBounds.yMax / Constants::g_globalBounds.height();
     const float flrHeight    = window.getSize().y - skyHeight;
 
-    sf::RectangleShape sky{ { bgWidth, skyHeight } };
-    sky.setTexture(&m_skyTex);
-    window.draw(sky);
-
+    // TODO: Give floor its own class
     // BUG: Texture appears stretched and distorted instead of being scaled to fit and repeated
     // Might require switching from sf::Shape to sf::Texture later on
     sf::RectangleShape flr{ { bgWidth, flrHeight } };
@@ -40,5 +37,6 @@ void World::drawBackground(sf::RenderWindow& window) const
 void World::drawTo(sf::RenderWindow& window)
 {
     drawBackground(window);
+    m_bg.drawTo(window);
     m_bird.drawTo(window);
 }

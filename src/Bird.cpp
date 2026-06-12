@@ -23,7 +23,7 @@ Bird::Bird(const char* pathToTexture, const float initY)
 void Bird::update(const float gravity, const float dt)
 {
     m_velY += gravity * dt;
-    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_worldBounds.yMax);
+    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_globalBounds.yMax);
     if (m_posY <= 0.0f) {
         m_alive = false;
     }
@@ -33,7 +33,7 @@ void Bird::update(const float gravity, const float dt)
 
 void Bird::drawTo(sf::RenderWindow& window)
 {
-    m_spr.setPosition(worldToScnCoords({0.0f, m_posY}, window.getSize(), Constants::g_worldBounds));
+    m_spr.setPosition(worldToScnCoords({0.0f, m_posY}, window.getSize(), Constants::g_globalBounds));
 
     window.draw(m_spr);
 }

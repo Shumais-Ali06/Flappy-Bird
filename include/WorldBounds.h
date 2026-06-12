@@ -1,5 +1,6 @@
 #pragma once
 
+#include <SFML/System.hpp>
 #include <cassert>
 
 struct WorldBounds {
@@ -14,4 +15,5 @@ struct WorldBounds {
 
     float width() const { return xMax - xMin; }
     float height() const { return yMax - yMin; }
+    sf::Vector2f getSize() const { return sf::Vector2f{ width(), height() }; }
 };
