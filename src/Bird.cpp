@@ -33,7 +33,7 @@ void Bird::update(const float gravity, const float dt)
 
 void Bird::drawTo(sf::RenderWindow& window)
 {
-    m_spr.setPosition(worldToScnCoords({0.0f, m_posY}, window.getSize(), Constants::g_globalBounds));
+    m_spr.setPosition(worldToScnCoords({0.0f, m_posY}, Constants::g_globalBounds, window.getSize()));
 
     window.draw(m_spr);
 }

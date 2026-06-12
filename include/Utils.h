@@ -5,29 +5,29 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-inline sf::Vector2f worldToScnCoords(const sf::Vector2f& pos,
-                                     const sf::Vector2u& windowSize,
-                                     const WorldBounds& bounds)
+/* Convert world coordinates to screen pixels for the given window size
+ * globalBounds specifies how to map each window corner to a worldPos
+ * Maps x linearly from [xMin,xMax] to [0,width] and y from [yMax,yMin] to [0,height]
+ * Derived using the two-point form of a straight line */
+inline sf::Vector2f worldToScnCoords(const sf::Vector2f& worldPos,
+                                     const WorldBounds& globalBounds,
+                                     const sf::Vector2u& windowSize)
 {
-    const float w = static_cast<float>(windowSize.x);
-    const float h = static_cast<float>(windowSize.y);
-
-    // Derived using the two-point form of a straight line
-    const float xScn = w / (bounds.xMax - bounds.xMin) * (pos.x - bounds.xMin);
-    const float yScn = h / (bounds.yMin - bounds.yMax) * (pos.y - bounds.yMax);
-
-    return sf::Vector2f{ xScn, yScn };
+    return sf::Vector2f{
+        windowSize.x * (worldPos.x - globalBounds.xMin) / (globalBounds.xMax - globalBounds.xMin),
+        windowSize.y * (worldPos.y - globalBounds.yMax) / (globalBounds.yMin - globalBounds.yMax)
+    };
 }
 
 /* Converts an entity size from world coordinates to screen coordinates by
  * scaling each axis by the ratio of window size to the global bounds size. */
 inline sf::Vector2f worldToScnSize(const sf::Vector2f& entityWorldSize,
                                    const sf::Vector2f& globalBoundsSize,
-                                   const sf::Vector2f& windowSize)
+                                   const sf::Vector2u& windowSize)
 {
     return sf::Vector2f{
-        entityWorldSize.x * (windowSize.x / globalBoundsSize.x),
-        entityWorldSize.y * (windowSize.y / globalBoundsSize.y),
+        windowSize.x * entityWorldSize.x / globalBoundsSize.x,
+        windowSize.y * entityWorldSize.y / globalBoundsSize.y
     };
 }
 

@@ -21,7 +21,7 @@ public:
                 0.0f                          , Constants::g_globalBounds.yMax }
     {
         // TODO: Replace hardcoded window size values
-        const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), { 800.0f, 600.0f }) };
+        const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), { 800, 600 }) };
 
         m_spr.setScale(computeSpriteScale(m_tex.getSize(), drawSize));
     }
