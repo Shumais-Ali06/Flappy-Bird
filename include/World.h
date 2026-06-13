@@ -8,9 +8,9 @@
 
 class World {
 private:
-    const sf::Texture   m_groundTex;
     const int           m_gravity     = -50;
     const int           m_scrollSpeed = 100;
+
     Background          m_bg;
     Floor               m_flr;
     Bird                m_bird;
