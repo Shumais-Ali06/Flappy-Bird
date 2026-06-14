@@ -5,7 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 PipeManager::PipeManager(const char* pathToTexture, const float interspacing, const int scrollSpeed)
-    : m_tex{ pathToTexture, false, { {0,0}, {32,80} } }
+    : m_tex{ pathToTexture, false, { {0,0}, {32,64} } }
     , m_interspacing{ interspacing }
     , m_scrollSpeed{ scrollSpeed }
 {
@@ -16,7 +16,6 @@ void PipeManager::update(const float dt)
     /* Add pipes until the distance between the rightmost pipe and the right
      * side of the screen is less than the distance between two pipes */
     while (m_pipes.empty() || Constants::g_globalBounds.xMax - m_pipes.back().getPosX() > m_interspacing) {
-        // rand() % (b-a+1)+a
         auto getRandInt = [](const int min, const int max) {
             return min + rand() % (max - min + 1);
         };
