@@ -19,8 +19,8 @@ PipePair::PipePair(const sf::Texture& tex,
 {
     // NOTE: The origin of each bottom pipe is at the centre bottom and for top pipe at the centre top
 
-    const sf::Vector2u originalSize = m_bottom.getTexture().getSize();
-
+    const sf::Vector2u originalSize{ tex.getSize() };
+    const sf::Vector2f globalBoundsSize{ Constants::g_globalBounds.getSize() };
     const sf::Vector2u windowSize{ Constants::g_windowWidth, Constants::g_windowHeight };
 
     // Bottom pipe
@@ -30,7 +30,7 @@ PipePair::PipePair(const sf::Texture& tex,
     };
 
     const sf::Vector2f bottomDrawSize{
-        worldToScnSize(bottomWorldSize, Constants::g_globalBounds.getSize(), windowSize)
+        worldToScnSize(bottomWorldSize, globalBoundsSize, windowSize)
     };
 
     m_bottom.setOrigin({ originalSize.x / 2.0f, static_cast<float>(originalSize.y) });
@@ -43,7 +43,7 @@ PipePair::PipePair(const sf::Texture& tex,
     };
 
     const sf::Vector2f topDrawSize{
-        worldToScnSize(topWorldSize, Constants::g_globalBounds.getSize(), windowSize)
+        worldToScnSize(topWorldSize, globalBoundsSize, windowSize)
     };
 
     m_top.setOrigin({ originalSize.x / 2.0f, static_cast<float>(originalSize.y) });
