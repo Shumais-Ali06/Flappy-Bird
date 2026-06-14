@@ -21,8 +21,7 @@ PipePair::PipePair(const sf::Texture& tex,
 
     const sf::Vector2u originalSize = m_bottom.getTexture().getSize();
 
-    // TODO: Replace the hardcoded window size values
-    const sf::Vector2u windowSize   = { 800, 600 };
+    const sf::Vector2u windowSize{ Constants::g_windowWidth, Constants::g_windowHeight };
 
     // Bottom pipe
     const sf::Vector2f bottomWorldSize{

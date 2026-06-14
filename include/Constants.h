@@ -4,7 +4,11 @@
 
 // Might split these further later on
 namespace Constants {
-    constexpr const char* g_appTitle            = "Flappy Bird";
+    constexpr const char*   g_appTitle          = "Flappy Bird";
+    constexpr unsigned int  g_windowWidth       = 800;
+    constexpr unsigned int  g_windowHeight      = 600;
+    constexpr unsigned int  g_targetFps         = 60;
+
 
     constexpr const char* g_birdTexturePath     = "assets/Player/StyleBird1/AllBird1.png";
     constexpr const char* g_bgTexturePath       = "assets/Background/Background3.png";

@@ -3,12 +3,12 @@
 
 Game::Game(State initState)
     : m_state{ initState }
-    , m_window{ sf::VideoMode{{m_windowWidth, m_windowHeight}},
-                              Constants::g_appTitle,
-                              sf::Style::Titlebar | sf::Style::Close }
+    , m_window{ sf::VideoMode{ { Constants::g_windowWidth, Constants::g_windowHeight } },
+                Constants::g_appTitle,
+                sf::Style::Titlebar | sf::Style::Close }
     , m_world{}
     {
-        m_window.setFramerateLimit(m_targetFps);
+        m_window.setFramerateLimit(Constants::g_targetFps);
     }
 
 void Game::update(float dt)

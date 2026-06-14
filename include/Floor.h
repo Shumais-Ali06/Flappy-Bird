@@ -20,11 +20,12 @@ public:
     , m_bounds{ Constants::g_globalBounds.xMin, Constants::g_globalBounds.xMax,
                 Constants::g_globalBounds.yMin, 0.0f }
     {
-        // TODO: Replace hardcoded window size values
-        const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), { 800, 600 }) };
+        const sf::Vector2u windowSize{ Constants::g_windowWidth, Constants::g_windowHeight };
+
+        const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), windowSize) };
 
         m_spr.setScale(computeSpriteScale(m_tex.getSize(), drawSize));
-        m_spr.setPosition(worldToScnCoords({ m_bounds.xMin, m_bounds.yMax }, Constants::g_globalBounds, { 800, 600 }));
+        m_spr.setPosition(worldToScnCoords({ m_bounds.xMin, m_bounds.yMax }, Constants::g_globalBounds, windowSize));
     }
 
     void drawTo(sf::RenderWindow& window)

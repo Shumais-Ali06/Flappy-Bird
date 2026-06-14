@@ -14,9 +14,6 @@ public:
     };
 
 private:
-    unsigned int        m_windowWidth  = 800;
-    unsigned int        m_windowHeight = 600;
-    unsigned int        m_targetFps    = 60;
     State               m_state;
     sf::RenderWindow    m_window;
     World               m_world;
