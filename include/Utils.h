@@ -1,33 +1,68 @@
 #pragma once
 
+#include "Constants.h"
 #include "WorldBounds.h"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
-/* Convert world coordinates to screen pixels for the given window size
- * globalBounds specifies how to map each window corner to a worldPos
- * Maps x linearly from [xMin,xMax] to [0,width] and y from [yMax,yMin] to [0,height]
+// Computes a centered viewport rectangle inside a window that maintains a given target aspect ratio
+inline sf::FloatRect computeViewport(const sf::Vector2u& windowSize, const float targetAspectRatio)
+{
+    const float winW = static_cast<float>(windowSize.x);
+    const float winH = static_cast<float>(windowSize.y);
+
+    if (winW <= 0.0f || winH <= 0.0f || targetAspectRatio <= 0.0f) {
+        return sf::FloatRect{};
+    }
+
+    const float winAspect = winW / winH;
+    float vpW, vpH;
+
+    if (winAspect > targetAspectRatio) {
+        // Window is wider -> pillarbox
+        vpH = winH;
+        vpW = vpH * targetAspectRatio;
+    } else {
+        // Window is taller or equal -> letterbox
+        vpW = winW;
+        vpH = vpW / targetAspectRatio;
+    }
+
+    // Center the viewport in the window
+    const float left = (winW - vpW) * 0.5f;
+    const float top  = (winH - vpH) * 0.5f;
+
+    return sf::FloatRect{
+        {left, top},
+        {vpW, vpH}
+    };
+}
+
+/* Map a point from world-space coordinates to screen (pixel) coordinates for a
+ * given window size within a computed viewport.
  * Derived using the two-point form of a straight line */
 inline sf::Vector2f worldToScnCoords(const sf::Vector2f& worldPos,
                                      const WorldBounds& globalBounds,
                                      const sf::Vector2u& windowSize)
 {
+    const sf::FloatRect viewRect{ computeViewport(windowSize, Constants::g_targetAspectRatio) };
     return sf::Vector2f{
-        windowSize.x * (worldPos.x - globalBounds.xMin) / (globalBounds.xMax - globalBounds.xMin),
-        windowSize.y * (worldPos.y - globalBounds.yMax) / (globalBounds.yMin - globalBounds.yMax)
+        viewRect.position.x + viewRect.size.x * (worldPos.x - globalBounds.xMin) / (globalBounds.xMax - globalBounds.xMin),
+        viewRect.position.y + viewRect.size.y * (worldPos.y - globalBounds.yMax) / (globalBounds.yMin - globalBounds.yMax)
     };
 }
 
-/* Converts an entity size from world coordinates to screen coordinates by
- * scaling each axis by the ratio of window size to the global bounds size. */
+/* Convert a size expressed in world-space units to size in screen pixels,
+ * matching the same viewport used by worldToScnCoords. */
 inline sf::Vector2f worldToScnSize(const sf::Vector2f& entityWorldSize,
                                    const sf::Vector2f& globalBoundsSize,
                                    const sf::Vector2u& windowSize)
 {
+    const sf::FloatRect viewRect{ computeViewport(windowSize, Constants::g_targetAspectRatio) };
     return sf::Vector2f{
-        windowSize.x * entityWorldSize.x / globalBoundsSize.x,
-        windowSize.y * entityWorldSize.y / globalBoundsSize.y
+        viewRect.size.x * entityWorldSize.x / globalBoundsSize.x,
+        viewRect.size.y * entityWorldSize.y / globalBoundsSize.y
     };
 }
 

@@ -13,7 +13,7 @@ struct WorldBounds {
         assert(yMin < yMax && "yMin must be < yMax");
     }
 
-    float width() const { return xMax - xMin; }
-    float height() const { return yMax - yMin; }
-    sf::Vector2f getSize() const { return sf::Vector2f{ width(), height() }; }
+    constexpr float width() const { return xMax - xMin; }
+    constexpr float height() const { return yMax - yMin; }
+    constexpr sf::Vector2f getSize() const { return sf::Vector2f{ width(), height() }; }
 };

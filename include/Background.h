@@ -25,6 +25,7 @@ public:
         const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), windowSize) };
 
         m_spr.setScale(computeSpriteScale(m_tex.getSize(), drawSize));
+        m_spr.setPosition( worldToScnCoords({ m_bounds.xMin, m_bounds.yMax }, Constants::g_globalBounds, windowSize));
     }
 
     void drawTo(sf::RenderWindow& window)
