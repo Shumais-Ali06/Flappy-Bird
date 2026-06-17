@@ -11,12 +11,15 @@ Bird::Bird(const char* pathToTexture, const float initY)
     , m_spr{ m_tex,  {{0,0}, {16,16} }, 4, 24.0f }
     , m_posY{ initY }
 {
-    /* NOTE: These values are hardcoded for the time being and the window aspect
-     * ratio should be taken into consideration as such */
-    const float scaleX = 2.5f;
-    const float scaleY = 2.5f;
+    const sf::Vector2u originalSize{ m_spr.getTextureRect().size };
+    const sf::Vector2u windowSize{ Constants::g_windowWidth, Constants::g_windowHeight };
+    const sf::Vector2f globalBoundsSize{ Constants::g_globalBounds.getSize() };
 
-    m_spr.setScale({scaleX, scaleY});
+    const sf::Vector2f drawSize{
+        worldToScnSize({ m_size, m_size }, globalBoundsSize, windowSize)
+    } ;
+
+    m_spr.setScale(computeSpriteScale(originalSize, drawSize));
     m_spr.setOrigin(m_spr.getLocalBounds().size / 2.0f);
 }
 
