@@ -1,17 +1,19 @@
 #pragma once
 
 #include "Constants.h"
+#include "Pipe.h"
 #include <SFML/Graphics.hpp>
 
+/* Class to manage a top-bottom pipe pair with a configurable vertical gap,
+ * handles positioning, movement, and rendering */
+// NOTE: Both pipes always have the same x position
 class PipePair {
 private:
-    sf::Sprite          m_top;
-    sf::Sprite          m_bottom;
-
     const float         m_gapLength;        // space between the two pipes (in game units)
     const float         m_gapHeight;        // distance between the ground and the centre of the gap
     const float         m_width;
-    float               m_posX;
+    Pipe                m_top;
+    Pipe                m_bottom;
 
 public:
     PipePair(const sf::Texture& tex,
@@ -20,7 +22,8 @@ public:
              const float width,
              const float posX);
 
-    float getPosX() const { return m_posX; }
-    void move(const float offsetX) { m_posX += offsetX; }
+    float getPosX() const { return m_top.getPosX(); }
+
+    void move(const float offsetX);
     void drawTo(sf::RenderWindow& window);
 };

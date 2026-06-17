@@ -16,6 +16,8 @@ private:
 public:
     PipeManager(const char* pathToTexture, const float interspacing, const int scrollSpeed);
 
+    const std::deque<PipePair>& getPipes() const { return m_pipes; }
+
     void drawPipes(sf::RenderWindow& window);
     void update(const float dt);
 };
