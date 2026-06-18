@@ -17,6 +17,8 @@ private:
     Bird                m_bird;
     PipeManager         m_pipeMgr;
 
+    bool checkBirdPipeCollision() const;
+
 public:
     World();
 

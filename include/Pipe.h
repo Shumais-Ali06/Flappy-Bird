@@ -25,7 +25,10 @@ public:
          const float width,
          const float posX);
 
+    float getLength() const { return m_length; }
+    float getWidth() const { return m_width; }
     float getPosX() const { return m_posX; }
+
     void move(const float offsetX) { m_posX += offsetX; }
 
     void drawTo(sf::RenderWindow& window);

@@ -3,7 +3,6 @@
 #include "WorldBounds.h"
 
 #include <SFML/Graphics.hpp>
-#include <SFML/Graphics/Rect.hpp>
 
 // Might split these further later on
 namespace Constants {

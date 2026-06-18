@@ -18,9 +18,12 @@ private:
 public:
     Bird(const char* pathToTexture, const float initY);
 
+    float getSize() const { return m_size; }
+    float getPosY() const { return m_posY; }
     bool isAlive() const { return m_alive; }
     const sf::Texture& getTexture() const { return m_tex; }
 
+    void kill();
     void jump();
     void update(const float gravity, const float dt);
     void drawTo(sf::RenderWindow& window);

@@ -26,4 +26,7 @@ public:
 
     void move(const float offsetX);
     void drawTo(sf::RenderWindow& window);
+
+    const Pipe& getTop() const { return m_top; }
+    const Pipe& getBottom() const { return m_bottom; }
 };

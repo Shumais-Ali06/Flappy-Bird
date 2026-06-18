@@ -23,12 +23,18 @@ Bird::Bird(const char* pathToTexture, const float initY)
     m_spr.setOrigin(m_spr.getLocalBounds().size / 2.0f);
 }
 
+void Bird::kill()
+{
+    m_alive = false;
+    m_velY  = 0.0f;
+}
+
 void Bird::update(const float gravity, const float dt)
 {
     m_velY += gravity * dt;
     m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_globalBounds.yMax);
     if (m_posY <= 0.0f) {
-        m_alive = false;
+        kill();
     }
 
     m_spr.playAnimation(dt);
