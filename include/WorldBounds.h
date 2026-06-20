@@ -42,7 +42,7 @@ public:
     float yMax() const { return m_pos.y + m_size.y; }
 
     // Returns true only if both rectangles have a positive overlapping area
-    bool doesIntersect(const WorldBounds& o)
+    bool doesIntersect(const WorldBounds& o) const
     {
         if (m_size.x <= 0 || m_size.y <= 0 || o.getSize().x <= 0 || o.getSize().y <= 0) {
             return false;
