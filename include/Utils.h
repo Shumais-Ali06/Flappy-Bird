@@ -48,8 +48,8 @@ inline sf::Vector2f worldToScnCoords(const sf::Vector2f& worldPos,
 {
     const sf::FloatRect viewRect{ computeViewport(windowSize, Constants::g_targetAspectRatio) };
     return sf::Vector2f{
-        viewRect.position.x + viewRect.size.x * (worldPos.x - globalBounds.xMin) / (globalBounds.xMax - globalBounds.xMin),
-        viewRect.position.y + viewRect.size.y * (worldPos.y - globalBounds.yMax) / (globalBounds.yMin - globalBounds.yMax)
+        viewRect.position.x + viewRect.size.x * (worldPos.x - globalBounds.xMin()) / globalBounds.getSize().x,
+        viewRect.position.y - viewRect.size.y * (worldPos.y - globalBounds.yMax()) / globalBounds.getSize().y
     };
 }
 

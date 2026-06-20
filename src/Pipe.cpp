@@ -35,7 +35,7 @@ Pipe::Pipe(const sf::Texture& tex,
 
 void Pipe::drawTo(sf::RenderWindow& window)
 {
-    const float posY = m_loc == BOTTOM ? 0.0f : Constants::g_globalBounds.yMax;
+    const float posY = m_loc == BOTTOM ? 0.0f : Constants::g_globalBounds.yMax();
     m_spr.setPosition(worldToScnCoords({ m_posX, posY }, Constants::g_globalBounds, window.getSize()));
     window.draw(m_spr);
 }

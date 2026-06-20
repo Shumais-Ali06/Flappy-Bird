@@ -32,7 +32,7 @@ void Bird::kill()
 void Bird::update(const float gravity, const float dt)
 {
     m_velY += gravity * dt;
-    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_globalBounds.yMax);
+    m_posY = std::clamp(m_posY + m_velY * dt, 0.0f, Constants::g_globalBounds.yMax());
     if (m_posY <= 0.0f) {
         kill();
     }

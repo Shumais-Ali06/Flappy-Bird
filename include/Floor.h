@@ -17,15 +17,17 @@ public:
     Floor(const char* pathToTexture)
     : m_tex{  pathToTexture, false, { {0, 80}, {64, 32} } }
     , m_spr{ m_tex }
-    , m_bounds{ Constants::g_globalBounds.xMin, Constants::g_globalBounds.xMax,
-                Constants::g_globalBounds.yMin, 0.0f }
+    , m_bounds{ Constants::g_globalBounds.xMin(), Constants::g_globalBounds.xMax(),
+                Constants::g_globalBounds.yMin(), 0.0f }
     {
         const sf::Vector2u windowSize{ Constants::g_windowWidth, Constants::g_windowHeight };
+        const sf::Vector2u originalSize{ m_spr.getTextureRect().size };
 
         const sf::Vector2f drawSize{ worldToScnSize(m_bounds.getSize(), Constants::g_globalBounds.getSize(), windowSize) };
 
         m_spr.setScale(computeSpriteScale(m_tex.getSize(), drawSize));
-        m_spr.setPosition(worldToScnCoords({ m_bounds.xMin, m_bounds.yMax }, Constants::g_globalBounds, windowSize));
+        m_spr.setOrigin({0.0f, static_cast<float>(originalSize.y)});      // Lower left corner
+        m_spr.setPosition(worldToScnCoords(m_bounds.getPos(), Constants::g_globalBounds, windowSize));
     }
 
     void drawTo(sf::RenderWindow& window)

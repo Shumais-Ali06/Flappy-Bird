@@ -28,7 +28,7 @@ namespace Constants {
     constexpr float         g_scaleRatio        = 1.0f / 1.0f;
 
     // World aspect ratio: width divided by height
-    constexpr float         g_worldRatio        = g_globalBounds.width() / g_globalBounds.height();
+    constexpr float         g_worldRatio        = g_globalBounds.getSize().x / g_globalBounds.getSize().y;
 
     /* Target aspect ratio used for rendering: combines world aspect with
      * the scale ratio that maps world units to screen units.

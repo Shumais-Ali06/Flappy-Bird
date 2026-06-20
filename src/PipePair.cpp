@@ -12,7 +12,7 @@ PipePair::PipePair(const sf::Texture& tex,
     : m_gapLength{ gapLength }
     , m_gapHeight{ gapHeight }
     , m_width{ width }
-    , m_top{ tex, Pipe::TOP, Constants::g_globalBounds.yMax - (gapHeight + gapLength / 2.0f), m_width, posX }
+    , m_top{ tex, Pipe::TOP, Constants::g_globalBounds.yMax() - (gapHeight + gapLength / 2.0f), m_width, posX }
     , m_bottom{ tex, Pipe::BOTTOM, gapHeight - gapLength / 2.0f, m_width, posX }
 {
 }

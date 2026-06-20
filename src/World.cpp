@@ -13,7 +13,7 @@ World::World()
     : m_bg{ Constants::g_bgTexturePath }
     , m_flr{ Constants::g_flrTexturePath }
     // Place the bird midway above the ground initially
-    , m_bird{ Constants::g_birdTexturePath, Constants::g_globalBounds.yMax / 2 }
+    , m_bird{ Constants::g_birdTexturePath, Constants::g_globalBounds.yMax() * 0.5f }
     , m_pipeMgr{ Constants::g_pipeTexturePath, 30, m_scrollSpeed }
 {
 }
@@ -21,7 +21,7 @@ World::World()
 bool World::checkBirdPipeCollision() const
 {
     // Fraction of the bird's size to inset the hitbox to reduce false collisions
-    constexpr float hitboxInsetFactor = 0.225f;
+    constexpr float hitboxInsetFactor = 0.23f;
     const float hitboxInset = m_bird.getSize() * hitboxInsetFactor;
 
     const auto doesIntersect = [](const Rect& a, const Rect& b) -> bool
@@ -53,7 +53,7 @@ bool World::checkBirdPipeCollision() const
 
         const Rect topPipeBox{
             pair.getTop().getPosX() - pair.getTop().getWidth() * 0.5f,
-            Constants::g_globalBounds.yMax - pair.getTop().getLength(),
+            Constants::g_globalBounds.yMax() - pair.getTop().getLength(),
             pair.getTop().getWidth(),
             pair.getTop().getLength()
         };
